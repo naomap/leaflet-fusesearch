@@ -26,6 +26,7 @@ L.Control.FuseSearch = L.Control.extend({
     
     options: {
         position: 'topright',
+        title: 'Search',
         caseSensitive: false,
         fuseThreshold: null,
         maxResultLength: 10,
@@ -63,7 +64,7 @@ L.Control.FuseSearch = L.Control.extend({
         // Control to open the search panel
         var butt = this._openButton = L.DomUtil.create('a', 'button', container);
         butt.href = '#';
-        butt.title = 'Search';
+        butt.title = this.options.title;
         var stop = L.DomEvent.stopPropagation;
         L.DomEvent.on(butt, 'click', stop)
                   .on(butt, 'mousedown', stop)
@@ -120,7 +121,7 @@ L.Control.FuseSearch = L.Control.extend({
         L.DomUtil.create('img', 'search-image', container);
         this._input = L.DomUtil.create('input', 'search-input', container);
         this._input.maxLength = 30;
-        this._input.placeholder = 'Chercher';
+        this._input.placeholder = this.options.title;
         this._input.onkeyup = function(evt) {
             var searchString = evt.currentTarget.value;
             _this.searchFeatures(searchString);
@@ -231,9 +232,8 @@ L.Control.FuseSearch = L.Control.extend({
     },
     
     _getFeaturePopupIfVisible: function(feature) {
-        // FIXME Should be implemented through LayersControlEvents
         var layer = feature.layer;
-        if (undefined !== layer && null !== layer._icon) {
+        if (undefined !== layer && this._map.hasLayer(layer)) {
             return layer.getPopup();
         }
     },
@@ -251,11 +251,8 @@ L.Control.FuseSearch = L.Control.extend({
             L.DomUtil.addClass(resultItem, 'clickable');
             resultItem.onclick = function() {
                 
-                var style = window.getComputedStyle(_this._panel);
-                var width = style.getPropertyValue('width');
-                var padding = style.getPropertyValue('padding');
-                
-                // Adapt the map padding to make sure the popup is not hidden by the search pane
+                // Temporarily adapt the map padding so that the popup is not
+                // hidden by the search pane
                 var oldPadding = popup.options.autoPanPaddingBottomRight;
                 var newPadding = new L.Point(_this.getOffset(), 10);
                 popup.options.autoPanPaddingBottomRight = newPadding;
@@ -278,7 +275,6 @@ L.Control.FuseSearch = L.Control.extend({
 
         return resultItem;
     }
- 
 });
 
 L.control.fuseSearch = function(options) {
