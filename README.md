@@ -48,8 +48,8 @@ The FuseSearch control can be created with the following options :
 In addition these options are directly passed to Fuse - more details on <a href="http://kiro.me/projects/fuse.html">Fuse.js</a> :
 <ul>
 <li><code>caseSensitive</code> : whether comparisons should be case sensitive, default is false</li>
-<li><code>threshold</code> : a decimal value indicating at which point the match algorithm gives up, default 0.5 
-A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anything, default 0.6</li>
+<li><code>threshold</code> : a decimal value indicating at which point the match algorithm gives up. 
+A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anything, default 0.5</li>
 </ul>
 
 <h2>Example</h2>
