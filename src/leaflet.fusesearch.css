@@ -22,12 +22,18 @@
     position: absolute;
     height: 100%;
     width: 350px;
+    
+    z-index: -1;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s linear;
+    -moz-transition: opacity 0.3s linear;
+    -o-transition: opacity 0.3s linear;
+    transition: opacity 0.3s linear;
 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 10px;
-    z-index: 2000;
 }
 
 .leaflet-fusesearch-panel .content {
@@ -52,22 +58,18 @@
 }
 
 .leaflet-fusesearch-panel.left {
-    left: -500px;
-    transition: left 0.5s, width 0.5s;
-}
-
-.leaflet-fusesearch-panel.right {
-    right: -500px;
-    transition: right 0.5s, width 0.5s;
-}
-
-.leaflet-fusesearch-panel.left.visible {
     left: 0;
 }
 
-.leaflet-fusesearch-panel.right.visible {
+.leaflet-fusesearch-panel.right {
     right: 0;
 }
+
+.leaflet-fusesearch-panel.visible {
+    opacity: 1;
+    z-index: 2000;
+}
+
 
 .leaflet-fusesearch-panel .close {
     position: absolute;
@@ -116,18 +118,6 @@
     .leaflet-fusesearch-panel {
         width: 100%;
         padding: 0;
-    }
-    .leaflet-fusesearch-panel.left {
-        left: -100%;
-    }
-    .leaflet-fusesearch-panel.right {
-        right: -100%;
-    }
-    .leaflet-fusesearch-panel.left.visible {
-        left: 0;
-    }
-    .leaflet-fusesearch-panel.right.visible {
-        right: 0;
     }
     .leaflet-fusesearch-panel .content {
         box-shadow: none;
