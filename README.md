@@ -28,9 +28,12 @@ If a pop-up is associated with the feature the user can click on it and the pop-
 The FuseSearch control can be created with the following options :
 <ul>
 <li><code>position</code> : position of the control, the search pane shows on the matching side. Default <code>'topright'</code>.</li>
-<li><code>title</code> : used for the control tooltip and the input placeholde, default <code>'Search'</code>.</li>
-<li><code>maxResultLength</code> : number of features displayed in the result list, default 10.</li>
-<li><code>showResultFct</code> : function to display a feature returned by the search, parameters are the feature and an HTML container. Here is an example :</li>
+<li><code>title</code> : used for the control tooltip, default <code>'Search'</code></li>
+<li><code>placeholder</code> : used for the input placeholder, default <code>'Search'</code></li>
+<li><code>maxResultLength</code> : number of features displayed in the result list, default is null 
+	so that all features found by Fuse are displayed</li>
+<li><code>showResultFct</code> : function to display a feature returned by the search, parameters are the
+	feature and an HTML container. Here is an example :</li>
 </ul>
 <pre>
     showResultFct: function(feature, container) {
@@ -44,9 +47,9 @@ The FuseSearch control can be created with the following options :
 
 In addition these options are directly passed to Fuse - more details on <a href="http://kiro.me/projects/fuse.html">Fuse.js</a> :
 <ul>
-<li><code>caseSensitive</code> : whether comparisons should be case sensitive, default is false.</li>
-<li><code>threshold</code> : a decimal value indicating at which point the match algorithm gives up. 
-A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anything.</li>
+<li><code>caseSensitive</code> : whether comparisons should be case sensitive, default is false</li>
+<li><code>threshold</code> : a decimal value indicating at which point the match algorithm gives up, default 0.5 
+A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anything, default 0.6</li>
 </ul>
 
 <h2>Example</h2>

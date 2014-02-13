@@ -112,7 +112,7 @@
     cursor: pointer;
 }
 
-@media (max-width:480px) {
+@media (max-width:320px) {
     .leaflet-fusesearch-panel {
         width: 100%;
         padding: 0;
@@ -133,6 +133,13 @@
         box-shadow: none;
         -webkit-border-radius: 0;
         border-radius: 0;        
+    }
+}
+
+@media (min-width: 321px) and (max-width: 480px) {
+    .leaflet-fusesearch-panel {
+        width: 250px;
+        padding: 0;
     }
 }
 

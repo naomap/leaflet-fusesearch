@@ -27,9 +27,10 @@ L.Control.FuseSearch = L.Control.extend({
     options: {
         position: 'topright',
         title: 'Search',
+        placeholder: 'Search',
         caseSensitive: false,
-        fuseThreshold: null,
-        maxResultLength: 10,
+        threshold: 0.5,
+        maxResultLength: null,
         showResultFct: null
     },
     
@@ -97,7 +98,7 @@ L.Control.FuseSearch = L.Control.extend({
         var mapContainer = map.getContainer();
         var className = 'leaflet-fusesearch-panel',
             pane = this._panel = L.DomUtil.create('div', className, mapContainer);
-
+        
         // Make sure we don't drag the map when we interact with the content
         var stop = L.DomEvent.stopPropagation;
         L.DomEvent.on(pane, 'click', stop)
@@ -121,7 +122,7 @@ L.Control.FuseSearch = L.Control.extend({
         L.DomUtil.create('img', 'search-image', container);
         this._input = L.DomUtil.create('input', 'search-input', container);
         this._input.maxLength = 30;
-        this._input.placeholder = this.options.title;
+        this._input.placeholder = this.options.placeholder;
         this._input.onkeyup = function(evt) {
             var searchString = evt.currentTarget.value;
             _this.searchFeatures(searchString);
@@ -205,11 +206,9 @@ L.Control.FuseSearch = L.Control.extend({
         
         var options = {
             keys: keys,
-            caseSensitive: this.caseSensitive
+            caseSensitive: this.options.caseSensitive,
+            threshold : this.options.threshold
         };
-        if (undefined !== this.options.fuseThreshold) {
-            options.threshold = this.options.fuseThreshold;
-        }
         
         this._fuseIndex = new Fuse(properties, options);
     },
@@ -226,7 +225,7 @@ L.Control.FuseSearch = L.Control.extend({
         var max = this.options.maxResultLength;
         for (var i in result) {
             this.createResultItem(result[i], resultList);
-            if (++num === max)
+            if (undefined !== max && ++num === max)
                 break;
         }
     },
@@ -251,13 +250,18 @@ L.Control.FuseSearch = L.Control.extend({
             L.DomUtil.addClass(resultItem, 'clickable');
             resultItem.onclick = function() {
                 
-                // Temporarily adapt the map padding so that the popup is not
-                // hidden by the search pane
-                var oldPadding = popup.options.autoPanPaddingBottomRight;
-                var newPadding = new L.Point(_this.getOffset(), 10);
-                popup.options.autoPanPaddingBottomRight = newPadding;
-                feature.layer.openPopup();
-                popup.options.autoPanPaddingBottomRight = oldPadding;
+                if (window.matchMedia("(max-width:480px)").matches) {
+                    _this.hidePanel();
+                    feature.layer.openPopup();
+                } else {
+                    // Temporarily adapt the map padding so that the popup 
+                    // is not hidden by the search pane
+                    var oldPadding = popup.options.autoPanPaddingBottomRight;
+                    var newPadding = new L.Point(_this.getOffset(), 10);
+                    popup.options.autoPanPaddingBottomRight = newPadding;
+                    feature.layer.openPopup();
+                    popup.options.autoPanPaddingBottomRight = oldPadding;
+                }
             };
         }
 
