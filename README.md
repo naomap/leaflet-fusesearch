@@ -20,8 +20,8 @@ searchCtrl.indexFeatures(features, ['name', 'company', 'details'];
 
 This is it !  By default the search control will appear on the top right corner of the map.
 This opens the search pane on the same side where you can type in the search string.
-Up to 10 features are listed, with the indexed properties displayed. 
-If a pop-up is associated with the feature the user can click on it and the pop-up shows up.
+The matching features are listed, with the indexed properties displayed. Clicking a feature
+on the list opens up the matching pop-up on the map, provided one is associated with it.
 
 <h2>Options</h2>
 
@@ -31,7 +31,7 @@ The FuseSearch control can be created with the following options :
 <li><code>title</code> : used for the control tooltip, default <code>'Search'</code></li>
 <li><code>placeholder</code> : used for the input placeholder, default <code>'Search'</code></li>
 <li><code>maxResultLength</code> : number of features displayed in the result list, default is null 
-	so that all features found by Fuse are displayed</li>
+	and all features found by Fuse are displayed</li>
 <li><code>showResultFct</code> : function to display a feature returned by the search, parameters are the
 	feature and an HTML container. Here is an example :</li>
 </ul>
