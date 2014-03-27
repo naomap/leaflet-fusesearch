@@ -32,6 +32,7 @@ The FuseSearch control can be created with the following options :
 <li><code>placeholder</code> : used for the input placeholder, default <code>'Search'</code></li>
 <li><code>maxResultLength</code> : number of features displayed in the result list, default is null 
 	and all features found by Fuse are displayed</li>
+<li><code>showInvisibleFeatures</code> : display the matching features even if their layer is invisible, default true</li>
 <li><code>showResultFct</code> : function to display a feature returned by the search, parameters are the
 	feature and an HTML container. Here is an example :</li>
 </ul>
