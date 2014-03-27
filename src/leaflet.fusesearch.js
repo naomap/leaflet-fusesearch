@@ -209,7 +209,7 @@ L.Control.FuseSearch = L.Control.extend({
     },
     
     getOffset: function() {
-         if (this._panelOnLeftSide) {
+        if (this._panelOnLeftSide) {
             return - this._panel.offsetWidth;
         } else {
             return this._panel.offsetWidth;
@@ -253,8 +253,8 @@ L.Control.FuseSearch = L.Control.extend({
                 this.createResultItem(props, resultList, popup);
                 if (undefined !== max && ++num === max)
                     break;
-                }
             }
+        }
     },
     
     _getFeaturePopupIfVisible: function(feature) {
@@ -280,13 +280,7 @@ L.Control.FuseSearch = L.Control.extend({
                     _this.hidePanel();
                     feature.layer.openPopup();
                 } else {
-                    // Temporarily adapt the map padding so that the popup 
-                    // is not hidden by the search pane
-                    var oldPadding = popup.options.autoPanPaddingBottomRight;
-                    var newPadding = new L.Point(_this.getOffset(), 10);
-                    popup.options.autoPanPaddingBottomRight = newPadding;
-                    feature.layer.openPopup();
-                    popup.options.autoPanPaddingBottomRight = oldPadding;
+                    _this._panAndPopup(feature, popup);
                 }
             };
         }
@@ -304,6 +298,23 @@ L.Control.FuseSearch = L.Control.extend({
         };
 
         return resultItem;
+    },
+    
+    _panAndPopup : function(feature, popup) {
+        // Temporarily adapt the map padding so that the popup is not hidden by the search pane
+        if (this._panelOnLeftSide) {
+            var oldPadding = popup.options.autoPanPaddingTopLeft;
+            var newPadding = new L.Point(- this.getOffset(), 10);
+            popup.options.autoPanPaddingTopLeft = newPadding;
+            feature.layer.openPopup();
+            popup.options.autoPanPaddingTopLeft = oldPadding;
+        } else {
+            var oldPadding = popup.options.autoPanPaddingBottomRight;
+            var newPadding = new L.Point(this.getOffset(), 10);
+            popup.options.autoPanPaddingBottomRight = newPadding;
+            feature.layer.openPopup();
+            popup.options.autoPanPaddingBottomRight = oldPadding;
+        }
     }
 });
 
