@@ -44,14 +44,16 @@ L.Control.FuseSearch = L.Control.extend({
         
         var ctrl = this._createControl();
         this._createPanel(map);
+        this._setEventListeners();
         map.invalidateSize();
-                
+        
         return ctrl;
     },
     
     onRemove: function(map) {
         
         this.hidePanel(map);
+        this._clearEventListeners();
         this._clearPanel(map);
         this._clearControl();
         
@@ -158,7 +160,23 @@ L.Control.FuseSearch = L.Control.extend({
         
         this._panel = null;
     },
-        
+    
+    _setEventListeners : function() {
+        var that = this;
+        var input = this._input;
+        this._map.addEventListener('overlayadd', function() {
+            that.searchFeatures(input.value);
+        });
+        this._map.addEventListener('overlayremove', function() {
+            that.searchFeatures(input.value);
+        });
+    },
+    
+    _clearEventListeners: function() {
+        this._map.removeEventListener('overlayadd');
+        this._map.removeEventListener('overlayremove');        
+    },
+    
     isPanelVisible: function () {
         return L.DomUtil.hasClass(this._panel, 'visible');
     },
