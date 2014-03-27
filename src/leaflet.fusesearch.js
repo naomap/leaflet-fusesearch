@@ -31,7 +31,8 @@ L.Control.FuseSearch = L.Control.extend({
         caseSensitive: false,
         threshold: 0.5,
         maxResultLength: null,
-        showResultFct: null
+        showResultFct: null,
+        showInvisibleFeatures: true
     },
     
     initialize: function(options) {
@@ -169,6 +170,8 @@ L.Control.FuseSearch = L.Control.extend({
             this._map.panBy([this.getOffset() * 0.5, 0], {duration: 0.5});
             this.fire('show');
             this._input.select();
+            // Search again as visibility of features might have changed
+            this.searchFeatures(this._input.value);
         }
     },
 
@@ -224,10 +227,16 @@ L.Control.FuseSearch = L.Control.extend({
         var num = 0;
         var max = this.options.maxResultLength;
         for (var i in result) {
-            this.createResultItem(result[i], resultList);
-            if (undefined !== max && ++num === max)
-                break;
-        }
+            var props = result[i];
+            var feature = props._feature;
+            var popup = this._getFeaturePopupIfVisible(feature);
+            
+            if (undefined !== popup || this.options.showInvisibleFeatures) {
+                this.createResultItem(props, resultList, popup);
+                if (undefined !== max && ++num === max)
+                    break;
+                }
+            }
     },
     
     _getFeaturePopupIfVisible: function(feature) {
@@ -237,7 +246,7 @@ L.Control.FuseSearch = L.Control.extend({
         }
     },
     
-    createResultItem: function(props, container) {
+    createResultItem: function(props, container, popup) {
 
         var _this = this;
         var feature = props._feature;
@@ -245,7 +254,6 @@ L.Control.FuseSearch = L.Control.extend({
         // Create a container and open the associated popup on click
         var resultItem = L.DomUtil.create('p', 'result-item', container);
         
-        var popup = this._getFeaturePopupIfVisible(feature);
         if (undefined !== popup) {
             L.DomUtil.addClass(resultItem, 'clickable');
             resultItem.onclick = function() {
