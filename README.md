@@ -55,4 +55,4 @@ A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anyt
 
 <h2>Example</h2>
 
-I'm currently working on providing a simple example, for now have a look at my <a href="http://www.naomap.fr">NaoMap site</a>.
+I'm currently working on providing a simple example, for now have a look at my <a href="http://demo1.naomap.fr">naomap site</a>.
