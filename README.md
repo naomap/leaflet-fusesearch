@@ -13,12 +13,12 @@ var searchCtrl = L.control.fuseSearch()
 searchCtrl.addTo(map);
 </pre>
 
-Then load your GeoJSON layer and index the features (buglet: pass in the array of features, not the layer), choosing the properties you want to index, e.g.
+Then load your GeoJSON layer and index the features (buglet: pass in the array of features, not the FeatureCollection), choosing the properties you want to index, e.g.
 <pre>
-searchCtrl.indexFeatures(features, ['name', 'company', 'details'];
+searchCtrl.indexFeatures(jsonData.features, ['name', 'company', 'details'];
 </pre>
 
-Finally you need to bind the layer (marker) to each feature, so that selecting an item in the result list opens up the matching popup :
+Finally you need to bind each layer (marker) to the feature it is associated with, so that selecting an item in the result list opens up the matching popup :
 <pre>
 feature.layer = layer;
 </pre>
