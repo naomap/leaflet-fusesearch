@@ -13,9 +13,14 @@ var searchCtrl = L.control.fuseSearch()
 searchCtrl.addTo(map);
 </pre>
 
-Then load your GeoJSON layer and index the features, choosing the properties you want to index, e.g.
+Then load your GeoJSON layer and index the features (buglet: pass in the array of features, not the layer), choosing the properties you want to index, e.g.
 <pre>
 searchCtrl.indexFeatures(features, ['name', 'company', 'details'];
+</pre>
+
+Finally you need to bind the layer (marker) to each feature, so that selecting an item in the result list opens up the matching popup :
+<pre>
+feature.layer = layer;
 </pre>
 
 This is it !  By default the search control will appear on the top right corner of the map.
@@ -55,4 +60,4 @@ A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anyt
 
 <h2>Example</h2>
 
-I'm currently working on providing a simple example, for now have a look at my <a href="http://demo1.naomap.fr">naomap site</a>.
+I should really provide a simpler example, however for now have a look at my <a href="http://dev.cartocite.fr/CultureNantes/">demo site</a>.
