@@ -260,6 +260,13 @@ L.Control.FuseSearch = L.Control.extend({
         }
     },
     
+    refresh: function() {
+        // Reapply the search on the indexed features - useful if features have been filtered out
+        if (this.isPanelVisible()) {
+            this.searchFeatures(this._input.value);
+        }
+    },
+    
     _getFeaturePopupIfVisible: function(feature) {
         var layer = feature.layer;
         if (undefined !== layer && this._map.hasLayer(layer)) {
