@@ -223,8 +223,10 @@ L.Control.FuseSearch = L.Control.extend({
         }
     },
 
-    indexFeatures: function(jsonFeatures, keys) {
+    indexFeatures: function(data, keys) {
 
+        var jsonFeatures = data.features || data;
+        
         this._keys = keys;
         var properties = jsonFeatures.map(function(feature) {
             // Keep track of the original feature
