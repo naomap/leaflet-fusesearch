@@ -239,9 +239,12 @@ L.Control.FuseSearch = L.Control.extend({
         var result = this._fuseIndex.search(string);
 
         // Empty result list
-        $(".result-item").remove();
+        var listItems = document.querySelectorAll(".result-item");
+        for (var i = 0 ; i < listItems.length ; i++) {
+            listItems[i].remove();
+        }
 
-        var resultList = $('.result-list')[0];
+        var resultList = document.querySelector('.result-list');
         var num = 0;
         var max = this.options.maxResultLength;
         for (var i in result) {
