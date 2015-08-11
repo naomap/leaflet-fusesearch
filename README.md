@@ -34,6 +34,7 @@ The FuseSearch control can be created with the following options :
 <ul>
 <li><code>position</code> : position of the control, the search pane shows on the matching side. Default <code>'topright'</code>.</li>
 <li><code>title</code> : used for the control tooltip, default <code>'Search'</code></li>
+<li><code>panelTitle</code> : title string to add on the top of the search panel, none by default</li>
 <li><code>placeholder</code> : used for the input placeholder, default <code>'Search'</code></li>
 <li><code>maxResultLength</code> : number of features displayed in the result list, default is null 
 	and all features found by Fuse are displayed</li>
@@ -57,6 +58,10 @@ In addition these options are directly passed to Fuse - more details on <a href=
 <li><code>threshold</code> : a decimal value indicating at which point the match algorithm gives up. 
 A threshold of 0.0 requires a perfect match, a threshold of 1.0 would match anything, default 0.5</li>
 </ul>
+
+<h2>Other functions</h2>
+The function <code>refresh()</code> can be used to search again the indexed features. 
+This is useful for instance when some features have been filtered out, and saves you from reindexing the features.
 
 <h2>Example</h2>
 
