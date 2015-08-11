@@ -27,6 +27,7 @@ L.Control.FuseSearch = L.Control.extend({
     options: {
         position: 'topright',
         title: 'Search',
+        panelTitle: '',
         placeholder: 'Search',
         caseSensitive: false,
         threshold: 0.5,
@@ -121,9 +122,15 @@ L.Control.FuseSearch = L.Control.extend({
         // Intermediate container to get the box sizing right
         var container = L.DomUtil.create('div', 'content', pane);
         
+        var header = L.DomUtil.create('div', 'header', container);
+        if (this.options.panelTitle) {
+           var title = L.DomUtil.create('p', 'panel-title', header);
+            title.innerHTML = this.options.panelTitle;
+        }
+        
         // Search image and input field
-        L.DomUtil.create('img', 'search-image', container);
-        this._input = L.DomUtil.create('input', 'search-input', container);
+        L.DomUtil.create('img', 'search-image', header);
+        this._input = L.DomUtil.create('input', 'search-input', header);
         this._input.maxLength = 30;
         this._input.placeholder = this.options.placeholder;
         this._input.onkeyup = function(evt) {
@@ -132,7 +139,7 @@ L.Control.FuseSearch = L.Control.extend({
         };
 
         // Close button
-        var close = this._closeButton = L.DomUtil.create('a', 'close', container);
+        var close = this._closeButton = L.DomUtil.create('a', 'close', header);
         close.innerHTML = '&times;';
         L.DomEvent.on(close, 'click', this.hidePanel, this);
         
