@@ -16,7 +16,7 @@ searchCtrl.addTo(map);
 Then load your GeoJSON layer and index the features, choosing the properties you want to index
 (note you can pass either the FeatureCollection itself or its .features), e.g.
 <pre>
-searchCtrl.indexFeatures(jsonData, ['name', 'company', 'details'];
+searchCtrl.indexFeatures(jsonData, ['name', 'company', 'details']);
 </pre>
 
 Finally you need to bind each layer (marker) to the feature it is associated with, so that selecting an item in the result list opens up the matching popup :
