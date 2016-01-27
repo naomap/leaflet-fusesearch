@@ -19,9 +19,13 @@ Then load your GeoJSON layer and index the features, choosing the properties you
 searchCtrl.indexFeatures(jsonData, ['name', 'company', 'details']);
 </pre>
 
-Finally you need to bind each layer (marker) to the feature it is associated with, so that selecting an item in the result list opens up the matching popup :
+Finally you need to bind each layer (marker) to the feature it is associated with, so that selecting an item in the result list opens up the matching popup. For instance :
 <pre>
-feature.layer = layer;
+L.geoJson(data, {
+    onEachFeature: function (feature, layer) {
+        <strong>feature.layer = layer;</strong>
+    }
+});
 </pre>
 
 This is it !  By default the search control will appear on the top right corner of the map.
