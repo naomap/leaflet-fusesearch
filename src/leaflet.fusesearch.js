@@ -22,7 +22,7 @@ if (!Array.prototype.map)
 
 L.Control.FuseSearch = L.Control.extend({
     
-    includes: L.Mixin.Events,
+    includes: L.Evented.prototype,
     
     options: {
         position: 'topright',
